@@ -51,7 +51,7 @@ class ParkMapViewController: UIViewController, MKMapViewDelegate {
   }
   
   func addAttractionPins() {
-    let filePath = Bundle.main.pathForResource("MagicMountainAttractions", ofType: "plist")
+    let filePath = Bundle.main.path(forResource: "MagicMountainAttractions", ofType: "plist")
     let attractions = NSArray(contentsOfFile: filePath!)
     for attraction in attractions! {
       let point = CGPointFromString(attraction["location"] as! String)
@@ -66,7 +66,7 @@ class ParkMapViewController: UIViewController, MKMapViewDelegate {
   }
   
   func addRoute() {
-    let thePath = Bundle.main.pathForResource("EntranceToGoliathRoute", ofType: "plist")
+    let thePath = Bundle.main.path(forResource: "EntranceToGoliathRoute", ofType: "plist")
     let pointsArray = NSArray(contentsOfFile: thePath!)
     
     let pointsCount = pointsArray!.count
@@ -89,29 +89,29 @@ class ParkMapViewController: UIViewController, MKMapViewDelegate {
   }
   
   func addCharacterLocation() {
-    let batmanFilePath = Bundle.main.pathForResource("BatmanLocations", ofType: "plist")
+    let batmanFilePath = Bundle.main.path(forResource: "BatmanLocations", ofType: "plist")
     let batmanLocations = NSArray(contentsOfFile: batmanFilePath!)
     let batmanPoint = CGPointFromString(batmanLocations![Int(arc4random()%4)] as! String)
     let batmanCenterCoordinate = CLLocationCoordinate2DMake(CLLocationDegrees(batmanPoint.x), CLLocationDegrees(batmanPoint.y))
     let batmanRadius = CLLocationDistance(max(5, Int(arc4random()%40)))
     let batman = Character(center:batmanCenterCoordinate, radius:batmanRadius)
-    batman.color = UIColor.blue()
+    batman.color = UIColor.blue
     
-    let tazFilePath = Bundle.main.pathForResource("TazLocations", ofType: "plist")
+    let tazFilePath = Bundle.main.path(forResource: "TazLocations", ofType: "plist")
     let tazLocations = NSArray(contentsOfFile: tazFilePath!)
     let tazPoint = CGPointFromString(tazLocations![Int(arc4random()%4)] as! String)
     let tazCenterCoordinate = CLLocationCoordinate2DMake(CLLocationDegrees(tazPoint.x), CLLocationDegrees(tazPoint.y))
     let tazRadius = CLLocationDistance(max(5, Int(arc4random()%40)))
     let taz = Character(center:tazCenterCoordinate, radius:tazRadius)
-    taz.color = UIColor.orange()
+    taz.color = UIColor.orange
     
-    let tweetyFilePath = Bundle.main.pathForResource("TweetyBirdLocations", ofType: "plist")
+    let tweetyFilePath = Bundle.main.path(forResource: "TweetyBirdLocations", ofType: "plist")
     let tweetyLocations = NSArray(contentsOfFile: tweetyFilePath!)
     let tweetyPoint = CGPointFromString(tweetyLocations![Int(arc4random()%4)] as! String)
     let tweetyCenterCoordinate = CLLocationCoordinate2DMake(CLLocationDegrees(tweetyPoint.x), CLLocationDegrees(tweetyPoint.y))
     let tweetyRadius = CLLocationDistance(max(5, Int(arc4random()%40)))
     let tweety = Character(center:tweetyCenterCoordinate, radius:tweetyRadius)
-    tweety.color = UIColor.yellow()
+    tweety.color = UIColor.yellow
     
     mapView.add(batman)
     mapView.add(taz)
@@ -128,12 +128,12 @@ class ParkMapViewController: UIViewController, MKMapViewDelegate {
       return overlayView
     } else if overlay is MKPolyline {
       let lineView = MKPolylineRenderer(overlay: overlay)
-      lineView.strokeColor = UIColor.green()
+      lineView.strokeColor = UIColor.green
       
       return lineView
     } else if overlay is MKPolygon {
       let polygonView = MKPolygonRenderer(overlay: overlay)
-      polygonView.strokeColor = UIColor.magenta()
+      polygonView.strokeColor = UIColor.magenta
       
       return polygonView
     } else if overlay is Character {
@@ -175,12 +175,12 @@ class ParkMapViewController: UIViewController, MKMapViewDelegate {
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
-    let optionsViewController = segue.destinationViewController as! MapOptionsViewController
+    let optionsViewController = segue.destination as! MapOptionsViewController
     optionsViewController.selectedOptions = selectedOptions
   }
   
   @IBAction func closeOptions(_ exitSegue: UIStoryboardSegue) {
-    let optionsViewController = exitSegue.sourceViewController as! MapOptionsViewController
+    let optionsViewController = exitSegue.source as! MapOptionsViewController
     selectedOptions = optionsViewController.selectedOptions
     self.loadSelectedOptions()
   }

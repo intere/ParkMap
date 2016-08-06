@@ -22,9 +22,9 @@ class ParkMapOverlayView: MKOverlayRenderer {
     
     let theMapRect = overlay.boundingMapRect
     let theRect = self.rect(for: theMapRect)
-    
-    context.scale(x: 1.0, y: -1.0)
-    context.translate(x: 0.0, y: -theRect.size.height)
+
+    context.scaleBy(x: 1.0, y: -1.0)
+    context.translateBy(x: 0.0, y: -theRect.size.height)
     context.draw(in: theRect, image: imageReference!)
   }
 }

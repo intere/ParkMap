@@ -40,7 +40,7 @@ class Park {
   var name: String?
   
   init(filename: String) {
-    let filePath = Bundle.main.pathForResource(filename, ofType: "plist")
+    let filePath = Bundle.main.path(forResource: filename, ofType: "plist")
     let properties = NSDictionary(contentsOfFile: filePath!)
     
     let midPoint = CGPointFromString(properties!["midCoord"] as! String)
